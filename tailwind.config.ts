@@ -7,15 +7,15 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1.5rem",
       screens: {
         "2xl": "1400px",
       },
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
+        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        display: ['Cormorant Garamond', 'Georgia', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -54,7 +54,7 @@ export default {
         brand: {
           cream: "hsl(var(--brand-cream))",
           charcoal: "hsl(var(--brand-charcoal))",
-          gold: "hsl(var(--brand-gold))",
+          terracotta: "hsl(var(--brand-terracotta))",
           "warm-gray": "hsl(var(--brand-warm-gray))",
         },
         sidebar: {
@@ -74,7 +74,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        soft: "var(--shadow-soft)",
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
         hover: "var(--shadow-hover)",
       },
       keyframes: {
