@@ -7,7 +7,7 @@ const testimonials = [
   {
     id: 1,
     quote: "The quality is exceptional. These pieces have become the foundation of my wardrobe. Simple, elegant, and incredibly well-made.",
-    author: "Sarah M.",
+    author: "Abi Varghese",
     location: "New York, NY",
   },
   {

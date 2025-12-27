@@ -1,4 +1,5 @@
 import { Instagram, Twitter } from "lucide-react";
+import zieaLogo from "@/assets/ziea-logo.png";
 
 const footerLinks = {
   shop: [
@@ -28,8 +29,8 @@ const FooterSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="#home" className="font-display text-2xl font-semibold tracking-wide">
-              ÈLAN
+            <a href="#home">
+              <img src={zieaLogo} alt="ZIEA" className="h-10" />
             </a>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
               Timeless essentials for everyday wear. 
@@ -106,7 +107,7 @@ const FooterSection = () => {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            © 2024 Èlan. All rights reserved.
+            © 2024 ZIEA. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-muted-foreground">
             <a href="#" className="hover:text-foreground transition-colors">
