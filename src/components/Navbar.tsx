@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/CartContext";
 import zieaLogo from "@/assets/ziea-logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { openCart, totalItems } = useCart();
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,12 +21,20 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "New Arrivals", href: "#new-arrivals" },
-    { name: "Collection", href: "#collections" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: isHomePage ? "#home" : "/" },
+    { name: "New Arrivals", href: isHomePage ? "#new-arrivals" : "/#new-arrivals" },
+    { name: "Collection", href: isHomePage ? "#collections" : "/#collections" },
+    { name: "About", href: isHomePage ? "#about" : "/#about" },
+    { name: "Contact", href: isHomePage ? "#contact" : "/#contact" },
   ];
+
+  const handleNavClick = (href: string) => {
+    setIsOpen(false);
+    if (href.startsWith("#") && isHomePage) {
+      const element = document.querySelector(href);
+      element?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <nav
@@ -34,21 +47,31 @@ const Navbar = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#home">
+          <Link to="/">
             <img src={zieaLogo} alt="ZIEA" className="h-10" />
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="nav-link text-sm tracking-wide"
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.href.startsWith("#") ? (
+                <button
+                  key={link.name}
+                  onClick={() => handleNavClick(link.href)}
+                  className="nav-link text-sm tracking-wide"
+                >
+                  {link.name}
+                </button>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="nav-link text-sm tracking-wide"
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
           </div>
 
           {/* Actions */}
@@ -56,10 +79,19 @@ const Navbar = () => {
             <Button variant="accent" size="sm" className="hidden md:inline-flex">
               Shop Now
             </Button>
-            <Button variant="ghost" size="icon" className="relative">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              onClick={openCart}
+            >
               <ShoppingBag className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-4 w-4 bg-accent text-accent-foreground text-[10px] rounded-full flex items-center justify-center font-medium">
-                0
+              <span
+                className={`absolute -top-1 -right-1 h-4 w-4 bg-accent text-accent-foreground text-[10px] rounded-full flex items-center justify-center font-medium transition-transform duration-200 ${
+                  totalItems > 0 ? "scale-100" : "scale-0"
+                }`}
+              >
+                {totalItems}
               </span>
             </Button>
 
@@ -79,16 +111,26 @@ const Navbar = () => {
         {isOpen && (
           <div className="lg:hidden py-6 border-t border-border animate-fade-in">
             <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-lg py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.href.startsWith("#") ? (
+                  <button
+                    key={link.name}
+                    onClick={() => handleNavClick(link.href)}
+                    className="text-lg py-2 text-left"
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="text-lg py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                )
+              )}
               <Button variant="accent" className="mt-4 w-full">
                 Shop Now
               </Button>

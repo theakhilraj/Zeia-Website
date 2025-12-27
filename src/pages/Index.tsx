@@ -6,11 +6,13 @@ import AboutSection from "@/components/AboutSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import FooterSection from "@/components/FooterSection";
+import CartDrawer from "@/components/CartDrawer";
 
 const Index = () => {
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Navbar />
+      <CartDrawer />
       <HeroSection />
       <NewArrivals />
       <CollectionsSection />
@@ -18,7 +20,7 @@ const Index = () => {
       <TestimonialsSection />
       <NewsletterSection />
       <FooterSection />
-    </main>
+    </div>
   );
 };
 
