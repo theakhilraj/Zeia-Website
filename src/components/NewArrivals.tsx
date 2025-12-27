@@ -107,7 +107,7 @@ const NewArrivals = () => {
               <div className="space-y-1">
                 <h3 className="font-medium text-lg">{product.name}</h3>
                 <p className="text-sm text-muted-foreground">{product.description}</p>
-                <p className="text-base font-medium">${product.price}</p>
+                <p className="text-base font-medium">₹{product.price}</p>
               </div>
             </article>
           ))}

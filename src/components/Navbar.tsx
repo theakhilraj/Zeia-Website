@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import zieaLogo from "@/assets/ziea-logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +20,6 @@ const Navbar = () => {
     { name: "New Arrivals", href: "#new-arrivals" },
     { name: "Collection", href: "#collections" },
     { name: "About", href: "#about" },
-    { name: "Sustainability", href: "#sustainability" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -34,8 +34,8 @@ const Navbar = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#home" className="font-display text-2xl font-semibold tracking-wide">
-            ÈLAN
+          <a href="#home">
+            <img src={zieaLogo} alt="ZIEA" className="h-10" />
           </a>
 
           {/* Desktop Navigation */}
