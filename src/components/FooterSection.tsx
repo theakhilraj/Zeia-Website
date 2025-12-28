@@ -4,18 +4,18 @@ import zieaLogo from "@/assets/ziea-logo.png";
 
 const footerLinks = {
   shop: [
-    { name: "New Arrivals", href: "#" },
-    { name: "Best Sellers", href: "#" },
-    { name: "Collections", href: "#" },
-    { name: "Sale", href: "#" },
+    { name: "New Arrivals", href: "/#new-arrivals" },
+    { name: "Best Sellers", href: "/#new-arrivals" },
+    { name: "Collections", href: "/#collections" },
+    { name: "Sale", href: "/#new-arrivals" },
   ],
   company: [
-    { name: "About Us", href: "#" },
-    { name: "Careers", href: "#" },
+    { name: "About Us", href: "/#about" },
+    { name: "Careers", href: "/contact" },
   ],
   support: [
-    { name: "Contact", href: "#" },
-    { name: "FAQ", href: "#" },
+    { name: "Contact", href: "/contact", isLink: true },
+    { name: "FAQ", href: "/faq", isLink: true },
     { name: "Shipping", href: "#" },
   ],
 };
@@ -96,12 +96,21 @@ const FooterSection = () => {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </a>
+                  {link.isLink ? (
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  )}
                 </li>
               ))}
               <li>
@@ -122,12 +131,12 @@ const FooterSection = () => {
             © 2024 ZIEA. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-muted-foreground">
-            <a href="#" className="hover:text-foreground transition-colors">
+            <Link to="/privacy-policy" className="hover:text-foreground transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            </Link>
+            <Link to="/terms-of-service" className="hover:text-foreground transition-colors">
               Terms of Service
-            </a>
+            </Link>
           </div>
         </div>
       </div>

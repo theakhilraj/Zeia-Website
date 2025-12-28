@@ -1,25 +1,29 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import collectionMen from "@/assets/collection-men.jpg";
+import collectionMotherhood from "@/assets/collection-men.jpg";
 import collectionWomen from "@/assets/collection-women.jpg";
 import collectionEssentials from "@/assets/collection-essentials.jpg";
 
 const collections = [
   {
     id: 1,
-    name: "Men",
-    description: "Refined essentials for the modern man",
-    image: collectionMen,
+    name: "Motherhood",
+    slug: "motherhood",
+    description: "Celebrate the beautiful journey",
+    image: collectionMotherhood,
   },
   {
     id: 2,
     name: "Women",
+    slug: "women",
     description: "Elegant pieces with timeless appeal",
     image: collectionWomen,
   },
   {
     id: 3,
     name: "Essentials",
+    slug: "essentials",
     description: "Wardrobe staples, elevated",
     image: collectionEssentials,
   },
@@ -52,9 +56,9 @@ const CollectionsSection = () => {
         {/* Collections Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {collections.map((collection, index) => (
-            <a
+            <Link
               key={collection.id}
-              href="#"
+              to={`/collection/${collection.slug}`}
               className={`group relative aspect-[4/5] overflow-hidden rounded-lg transition-all duration-700 ${
                 isVisible
                   ? "opacity-100 translate-y-0"
@@ -84,7 +88,7 @@ const CollectionsSection = () => {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-image.jpg";
 
@@ -28,11 +29,11 @@ const HeroSection = () => {
             Crafted with intention, made to last.
           </p>
           <div className="flex flex-wrap gap-4 opacity-0 animate-fade-up stagger-4">
-            <Button variant="accent" size="lg">
-              Shop Collection
+            <Button variant="accent" size="lg" asChild>
+              <Link to="/collection/women">Shop Collection</Link>
             </Button>
-            <Button variant="outline" size="lg">
-              View Lookbook
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/lookbook">View Lookbook</Link>
             </Button>
           </div>
         </div>
