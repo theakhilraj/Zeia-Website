@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
+import { useFavorites } from "@/contexts/FavoritesContext";
 import { Product } from "@/data/products";
 import { toast } from "sonner";
 
@@ -12,6 +14,8 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, index = 0, isVisible = true }: ProductCardProps) => {
   const { addItem } = useCart();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const liked = isFavorite(String(product.id));
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -21,11 +25,18 @@ const ProductCard = ({ product, index = 0, isVisible = true }: ProductCardProps)
       name: product.name,
       price: product.price,
       image: product.image,
-      size: "M", // Default size for quick add
+      size: "M",
     });
     toast.success(`${product.name} added to cart`, {
       description: "Size M selected",
     });
+  };
+
+  const handleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(String(product.id));
+    toast.success(liked ? "Removed from favorites" : "Added to favorites");
   };
 
   return (
@@ -43,6 +54,18 @@ const ProductCard = ({ product, index = 0, isVisible = true }: ProductCardProps)
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300" />
+
+          {/* Favorite Button */}
+          <button
+            onClick={handleFavorite}
+            className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+              liked 
+                ? "bg-accent text-accent-foreground" 
+                : "bg-background/80 text-foreground opacity-0 group-hover:opacity-100"
+            }`}
+          >
+            <Heart className={`h-5 w-5 ${liked ? "fill-current" : ""}`} />
+          </button>
 
           {/* Quick Add Button */}
           <div className="absolute bottom-4 left-4 right-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
