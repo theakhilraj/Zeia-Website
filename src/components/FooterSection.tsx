@@ -16,7 +16,8 @@ const footerLinks = {
   support: [
     { name: "Contact", href: "/contact", isLink: true },
     { name: "FAQ", href: "/faq", isLink: true },
-    { name: "Shipping", href: "#" },
+    { name: "Shipping", href: "/shipping", isLink: true },
+    { name: "Returns", href: "/returns", isLink: true },
   ],
 };
 
@@ -113,14 +114,6 @@ const FooterSection = () => {
                   )}
                 </li>
               ))}
-              <li>
-                <Link
-                  to="/returns"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Returns
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

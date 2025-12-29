@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag, Heart } from "lucide-react";
+import { useFavorites } from "@/contexts/FavoritesContext";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import zieaLogo from "@/assets/ziea-logo.png";
@@ -9,6 +10,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { openCart, totalItems } = useCart();
+  const { favorites } = useFavorites();
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
@@ -79,6 +81,22 @@ const Navbar = () => {
             <Button variant="accent" size="sm" className="hidden md:inline-flex">
               Shop Now
             </Button>
+            <Link to="/wishlist">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative"
+              >
+                <Heart className="h-5 w-5" />
+                <span
+                  className={`absolute -top-1 -right-1 h-4 w-4 bg-accent text-accent-foreground text-[10px] rounded-full flex items-center justify-center font-medium transition-transform duration-200 ${
+                    favorites.length > 0 ? "scale-100" : "scale-0"
+                  }`}
+                >
+                  {favorites.length}
+                </span>
+              </Button>
+            </Link>
             <Button
               variant="ghost"
               size="icon"
