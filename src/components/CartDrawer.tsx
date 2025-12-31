@@ -12,8 +12,16 @@ const CartDrawer = () => {
   };
 
   const handleCheckout = () => {
+    // Build WhatsApp message with cart details
+    const orderDetails = items.map((item) => 
+      `• ${item.name} (Size: ${item.size}) x${item.quantity} - ₹${(item.price * item.quantity).toLocaleString()}`
+    ).join('\n');
+    
+    const message = `🛒 *New Order from ZIEA*\n\n*Order Details:*\n${orderDetails}\n\n*Subtotal:* ₹${subtotal.toLocaleString()}\n\nPlease confirm my order.`;
+    
+    const whatsappUrl = `https://wa.me/918301027765?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
     closeCart();
-    // Navigate to checkout or show checkout flow
   };
 
   const handleViewProduct = (id: number) => {
