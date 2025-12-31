@@ -20,24 +20,6 @@ const AboutSection = () => {
           >
             <div className="aspect-[4/5] bg-gradient-to-br from-secondary to-muted rounded-lg" />
             <div className="absolute -bottom-6 -right-6 w-2/3 aspect-square border-2 border-accent/30 rounded-lg" />
-            
-            {/* Stats */}
-            <div className="absolute -bottom-8 left-8 bg-card p-8 rounded-lg shadow-lg">
-              <div className="flex gap-10">
-                <div>
-                  <p className="font-display text-4xl font-medium text-accent">15+</p>
-                  <p className="text-xs tracking-wider uppercase text-muted-foreground mt-1">
-                    Years
-                  </p>
-                </div>
-                <div>
-                  <p className="font-display text-4xl font-medium text-accent">100%</p>
-                  <p className="text-xs tracking-wider uppercase text-muted-foreground mt-1">
-                    Sustainable
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Text Content */}
