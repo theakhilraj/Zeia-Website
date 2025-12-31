@@ -64,7 +64,7 @@ const Returns = () => {
             <p className="text-muted-foreground leading-relaxed">
               Reach out to us on{" "}
               <a 
-                href="https://wa.me/8301027765" 
+                href="https://wa.me/918301027765"
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-foreground underline hover:no-underline"
