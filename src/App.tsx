@@ -16,6 +16,7 @@ import Collection from "./pages/Collection";
 import Lookbook from "./pages/Lookbook";
 import Wishlist from "./pages/Wishlist";
 import Shipping from "./pages/Shipping";
+import Careers from "./pages/Careers";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/lookbook" element={<Lookbook />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/shipping" element={<Shipping />} />
+              <Route path="/careers" element={<Careers />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
