@@ -11,6 +11,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
@@ -20,7 +21,7 @@ const Contact = () => {
     toast.success("Message sent successfully!", {
       description: "We'll get back to you within 24-48 hours.",
     });
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
   };
 
   return (
@@ -69,9 +70,21 @@ const Contact = () => {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="your@email.com"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Please enter a valid email address"
                         required
                       />
                     </div>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Phone Number</label>
+                    <Input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+91 XXXXX XXXXX"
+                      required
+                    />
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-2 block">Subject</label>
