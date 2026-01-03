@@ -81,8 +81,13 @@ const Contact = () => {
                     <Input
                       type="tel"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[^0-9+\s-]/g, '');
+                        setFormData({ ...formData, phone: value });
+                      }}
                       placeholder="+91 XXXXX XXXXX"
+                      pattern="[\+]?[0-9\s\-]{10,15}"
+                      title="Please enter a valid phone number (10-15 digits)"
                       required
                     />
                   </div>
