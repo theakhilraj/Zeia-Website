@@ -27,7 +27,7 @@ const Navbar = () => {
     { name: "New Arrivals", href: isHomePage ? "#new-arrivals" : "/#new-arrivals" },
     { name: "Collection", href: isHomePage ? "#collections" : "/#collections" },
     { name: "About", href: isHomePage ? "#about" : "/#about" },
-    { name: "Contact", href: isHomePage ? "#contact" : "/#contact" },
+    { name: "Contact", href: "/contact" },
   ];
 
   const handleNavClick = (href: string) => {

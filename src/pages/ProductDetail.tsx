@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronRight, Minus, Plus, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,11 @@ const ProductDetail = () => {
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+
+  // Scroll to top when component mounts or product changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (!product) {
     return (
