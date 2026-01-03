@@ -11,7 +11,7 @@ const footerLinks = {
   ],
   company: [
     { name: "About Us", href: "/#about" },
-    { name: "Careers", href: "/contact" },
+    { name: "Careers", href: "/careers", isLink: true },
   ],
   support: [
     { name: "Contact", href: "/contact", isLink: true },
@@ -80,12 +80,21 @@ const FooterSection = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </a>
+                  {link.isLink ? (
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
