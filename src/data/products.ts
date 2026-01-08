@@ -10,6 +10,8 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  originalPrice: number;
+  discount: number;
   image: string;
   images: string[];
   fabric: string;
@@ -24,6 +26,8 @@ export const products: Product[] = [
     name: "Linen Essential Shirt",
     description: "Breathable organic linen",
     price: 2899,
+    originalPrice: 3499,
+    discount: 17,
     image: product1,
     images: [product1, product2, product3],
     fabric: "100% Organic Linen",
@@ -36,6 +40,8 @@ export const products: Product[] = [
     name: "Tailored Wool Trousers",
     description: "Italian merino wool blend",
     price: 4599,
+    originalPrice: 5999,
+    discount: 23,
     image: product2,
     images: [product2, product1, product4],
     fabric: "80% Merino Wool, 20% Polyester",
@@ -48,6 +54,8 @@ export const products: Product[] = [
     name: "Cashmere Knit Sweater",
     description: "100% Mongolian cashmere",
     price: 6199,
+    originalPrice: 7999,
+    discount: 22,
     image: product3,
     images: [product3, product5, product6],
     fabric: "100% Mongolian Cashmere",
@@ -60,6 +68,8 @@ export const products: Product[] = [
     name: "Linen Blazer",
     description: "Relaxed fit, unlined",
     price: 6999,
+    originalPrice: 8999,
+    discount: 22,
     image: product4,
     images: [product4, product1, product2],
     fabric: "100% European Linen",
@@ -72,6 +82,8 @@ export const products: Product[] = [
     name: "Organic Cotton Tee",
     description: "GOTS certified organic",
     price: 1499,
+    originalPrice: 1999,
+    discount: 25,
     image: product5,
     images: [product5, product6, product3],
     fabric: "100% GOTS Certified Organic Cotton",
@@ -84,6 +96,8 @@ export const products: Product[] = [
     name: "Linen Shorts",
     description: "Lightweight summer essential",
     price: 2399,
+    originalPrice: 2999,
+    discount: 20,
     image: product6,
     images: [product6, product5, product1],
     fabric: "100% Organic Linen",
