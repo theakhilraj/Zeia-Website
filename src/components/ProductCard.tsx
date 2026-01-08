@@ -82,7 +82,11 @@ const ProductCard = ({ product, index = 0, isVisible = true }: ProductCardProps)
         <div className="space-y-1">
           <h3 className="font-medium text-lg group-hover:text-accent transition-colors">{product.name}</h3>
           <p className="text-sm text-muted-foreground">{product.description}</p>
-          <p className="text-base font-medium">₹{product.price.toLocaleString()}</p>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-sm text-muted-foreground line-through">₹{product.originalPrice.toLocaleString()}</span>
+            <span className="text-xs font-semibold text-destructive bg-destructive/10 px-2 py-0.5 rounded">{product.discount}% OFF</span>
+          </div>
+          <p className="text-base font-semibold text-foreground">₹{product.price.toLocaleString()}</p>
         </div>
       </Link>
     </article>
