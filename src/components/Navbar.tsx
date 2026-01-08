@@ -5,6 +5,7 @@ import { useFavorites } from "@/contexts/FavoritesContext";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import zieaLogo from "@/assets/ziea-logo.png";
+import SearchDialog from "./SearchDialog";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,6 +79,7 @@ const Navbar = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
+            <SearchDialog />
             <Button variant="accent" size="sm" className="hidden md:inline-flex">
               Shop Now
             </Button>
