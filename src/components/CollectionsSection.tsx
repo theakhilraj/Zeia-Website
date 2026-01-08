@@ -29,6 +29,9 @@ const collections = [
   },
 ];
 
+// Export for reuse
+export { collections };
+
 const CollectionsSection = () => {
   const [sectionRef, isVisible] = useScrollAnimation<HTMLElement>();
 
@@ -54,7 +57,30 @@ const CollectionsSection = () => {
         </div>
 
         {/* Collections Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* All Products Card */}
+          <Link
+            to="/collection/all"
+            className={`group relative aspect-[4/5] overflow-hidden rounded-lg transition-all duration-700 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-12"
+            }`}
+          >
+            <div className="w-full h-full bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center">
+              <div className="text-center p-6">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  </svg>
+                </div>
+                <h3 className="font-display text-2xl font-medium mb-2">All Products</h3>
+                <p className="text-sm text-muted-foreground">Browse everything</p>
+              </div>
+            </div>
+            <div className="absolute inset-0 border-2 border-transparent group-hover:border-accent/30 rounded-lg transition-colors" />
+          </Link>
+
           {collections.map((collection, index) => (
             <Link
               key={collection.id}
@@ -64,7 +90,7 @@ const CollectionsSection = () => {
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-12"
               }`}
-              style={{ transitionDelay: `${index * 150}ms` }}
+              style={{ transitionDelay: `${(index + 1) * 150}ms` }}
             >
               <img
                 src={collection.image}
@@ -79,7 +105,7 @@ const CollectionsSection = () => {
                   {collection.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <h3 className="font-display text-3xl font-medium transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                  <h3 className="font-display text-2xl font-medium transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-75">
                     {collection.name}
                   </h3>
                   <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 delay-150">
