@@ -3,35 +3,65 @@ import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
 import CartDrawer from "@/components/CartDrawer";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { products, Product } from "@/data/products";
 import collectionMotherhood from "@/assets/collection-men.jpg";
 import collectionWomen from "@/assets/collection-women.jpg";
 import collectionEssentials from "@/assets/collection-essentials.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 
-const collectionData: Record<string, { name: string; description: string; image: string; tagline: string }> = {
+interface CollectionInfo {
+  name: string;
+  description: string;
+  image: string;
+  tagline: string;
+  productIds?: number[];
+}
+
+const collectionData: Record<string, CollectionInfo> = {
+  all: {
+    name: "All Products",
+    description: "Explore our complete collection of sustainable, ethically crafted pieces. From everyday essentials to statement pieces, find everything you need here.",
+    image: heroImage,
+    tagline: "Complete Collection",
+  },
   motherhood: {
     name: "Motherhood",
     description: "Celebrate the beautiful journey of motherhood with our specially curated collection. Comfortable, elegant pieces designed for the modern mother.",
     image: collectionMotherhood,
     tagline: "Embrace the Journey",
+    productIds: [1, 3],
   },
   women: {
     name: "Women",
     description: "Elegant pieces with timeless appeal. Our women's collection features sophisticated designs crafted for the confident, modern woman.",
     image: collectionWomen,
     tagline: "Timeless Elegance",
+    productIds: [2, 4],
   },
   essentials: {
     name: "Essentials",
     description: "Wardrobe staples, elevated. Build your capsule wardrobe with our essential pieces that form the foundation of effortless style.",
     image: collectionEssentials,
     tagline: "Everyday Luxury",
+    productIds: [5, 6],
   },
+};
+
+const getCollectionProducts = (slug: string): Product[] => {
+  const collection = collectionData[slug];
+  if (!collection || slug === "all") {
+    return products;
+  }
+  if (collection.productIds) {
+    return products.filter(p => collection.productIds!.includes(p.id));
+  }
+  return products;
 };
 
 const Collection = () => {
   const { slug } = useParams<{ slug: string }>();
   const collection = slug ? collectionData[slug] : null;
+  const collectionProducts = slug ? getCollectionProducts(slug) : [];
 
   if (!collection) {
     return (
@@ -97,7 +127,7 @@ const Collection = () => {
         {/* Products Grid */}
         <section className="container-custom pb-16">
           <div className="flex items-center justify-between mb-8">
-            <p className="text-muted-foreground">{products.length} Products</p>
+            <p className="text-muted-foreground">{collectionProducts.length} Products</p>
             <select className="bg-transparent border border-border rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent">
               <option value="featured">Featured</option>
               <option value="price-low">Price: Low to High</option>
@@ -107,7 +137,7 @@ const Collection = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {products.map((product, index) => (
+            {collectionProducts.map((product, index) => (
               <ProductCard key={product.id} product={product} index={index} isVisible={true} />
             ))}
           </div>
