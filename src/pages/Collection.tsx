@@ -1,3 +1,4 @@
+import { useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
@@ -9,6 +10,7 @@ import collectionWomen from "@/assets/collection-women.jpg";
 import collectionEssentials from "@/assets/collection-essentials.jpg";
 import heroImage from "@/assets/hero-image.jpg";
 
+type SortOption = "featured" | "price-low" | "price-high" | "newest";
 interface CollectionInfo {
   name: string;
   description: string;
@@ -60,8 +62,24 @@ const getCollectionProducts = (slug: string): Product[] => {
 
 const Collection = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [sortBy, setSortBy] = useState<SortOption>("featured");
   const collection = slug ? collectionData[slug] : null;
-  const collectionProducts = slug ? getCollectionProducts(slug) : [];
+  const baseProducts = slug ? getCollectionProducts(slug) : [];
+
+  const collectionProducts = useMemo(() => {
+    const sorted = [...baseProducts];
+    switch (sortBy) {
+      case "price-low":
+        return sorted.sort((a, b) => a.price - b.price);
+      case "price-high":
+        return sorted.sort((a, b) => b.price - a.price);
+      case "newest":
+        return sorted.sort((a, b) => b.id - a.id);
+      case "featured":
+      default:
+        return sorted;
+    }
+  }, [baseProducts, sortBy]);
 
   if (!collection) {
     return (
@@ -128,7 +146,11 @@ const Collection = () => {
         <section className="container-custom pb-16">
           <div className="flex items-center justify-between mb-8">
             <p className="text-muted-foreground">{collectionProducts.length} Products</p>
-            <select className="bg-transparent border border-border rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent">
+            <select 
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              className="bg-transparent border border-border rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent cursor-pointer"
+            >
               <option value="featured">Featured</option>
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>
