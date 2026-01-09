@@ -12,6 +12,7 @@ const footerLinks = {
   company: [
     { name: "About Us", href: "/#about" },
     { name: "Careers", href: "/careers", isLink: true },
+    { name: "Bulk Orders", href: "/contact", isLink: true },
   ],
   support: [
     { name: "Contact", href: "/contact", isLink: true },
