@@ -64,9 +64,9 @@ const Collection = () => {
   const { slug } = useParams<{ slug: string }>();
   const [sortBy, setSortBy] = useState<SortOption>("featured");
   const collection = slug ? collectionData[slug] : null;
-  const baseProducts = slug ? getCollectionProducts(slug) : [];
 
   const collectionProducts = useMemo(() => {
+    const baseProducts = slug ? getCollectionProducts(slug) : [];
     const sorted = [...baseProducts];
     switch (sortBy) {
       case "price-low":
@@ -79,7 +79,7 @@ const Collection = () => {
       default:
         return sorted;
     }
-  }, [baseProducts, sortBy]);
+  }, [slug, sortBy]);
 
   if (!collection) {
     return (
