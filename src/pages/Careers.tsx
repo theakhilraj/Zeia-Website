@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
+import { Button } from "@/components/ui/button";
 
 const Careers = () => {
   return (
@@ -37,6 +39,33 @@ const Careers = () => {
             <p className="text-muted-foreground max-w-md mx-auto">
               We don't have any open positions at the moment. Please check back later or follow us on social media for updates on future opportunities.
             </p>
+          </div>
+
+          <div className="mt-12 bg-secondary/30 rounded-2xl p-12 md:p-16">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
+              <svg 
+                className="w-8 h-8 text-primary" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={1.5} 
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" 
+                />
+              </svg>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-4">
+              Bulk Orders
+            </h2>
+            <p className="text-muted-foreground max-w-md mx-auto mb-6">
+              Interested in placing a bulk order for your business or event? Get in touch with us for special pricing and customization options.
+            </p>
+            <Button asChild size="lg">
+              <Link to="/contact">Contact Us</Link>
+            </Button>
           </div>
         </div>
       </main>
