@@ -127,34 +127,32 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Full Screen Overlay */}
         {isOpen && (
-          <div className="lg:hidden py-6 border-t border-border animate-fade-in">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) =>
-                link.href.startsWith("#") ? (
-                  <button
-                    key={link.name}
-                    onClick={() => handleNavClick(link.href)}
-                    className="text-lg py-2 text-left"
-                  >
-                    {link.name}
-                  </button>
-                ) : (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className="text-lg py-2"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                )
-              )}
-              <Button variant="accent" className="mt-4 w-full">
-                Shop Now
-              </Button>
-            </div>
+          <div className="lg:hidden fixed inset-0 top-20 z-50 bg-background animate-fade-in flex flex-col items-center justify-center gap-6">
+            {navLinks.map((link) =>
+              link.href.startsWith("#") ? (
+                <button
+                  key={link.name}
+                  onClick={() => handleNavClick(link.href)}
+                  className="text-2xl py-3 text-foreground font-medium tracking-wide"
+                >
+                  {link.name}
+                </button>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-2xl py-3 text-foreground font-medium tracking-wide"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
+            <Button variant="accent" size="lg" className="mt-6 w-64">
+              Shop Now
+            </Button>
           </div>
         )}
       </div>
