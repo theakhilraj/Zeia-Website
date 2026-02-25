@@ -32,9 +32,6 @@ const HeroSection = () => {
             <Button variant="accent" size="lg" asChild>
               <Link to="/collection/women">Shop Collection</Link>
             </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/lookbook">View Lookbook</Link>
-            </Button>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ import FAQ from "./pages/FAQ";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import Collection from "./pages/Collection";
-import Lookbook from "./pages/Lookbook";
+
 import Wishlist from "./pages/Wishlist";
 import Shipping from "./pages/Shipping";
 import Careers from "./pages/Careers";
@@ -40,7 +40,7 @@ const App = () => (
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/collection/:slug" element={<Collection />} />
-              <Route path="/lookbook" element={<Lookbook />} />
+              
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/shipping" element={<Shipping />} />
               <Route path="/careers" element={<Careers />} />
