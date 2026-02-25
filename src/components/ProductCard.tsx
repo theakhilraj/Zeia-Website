@@ -47,7 +47,7 @@ const ProductCard = ({ product, index = 0, isVisible = true }: ProductCardProps)
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <Link to={`/product/${product.id}`}>
-        <div className="relative aspect-[3/4] overflow-hidden bg-secondary rounded-lg mb-5">
+        <div className="relative aspect-[3/4] overflow-hidden bg-secondary rounded-md md:rounded-lg mb-2 md:mb-5">
           <img
             src={product.image}
             alt={product.name}
@@ -58,13 +58,13 @@ const ProductCard = ({ product, index = 0, isVisible = true }: ProductCardProps)
           {/* Favorite Button */}
           <button
             onClick={handleFavorite}
-            className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+            className={`absolute top-2 right-2 md:top-4 md:right-4 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
               liked 
                 ? "bg-accent text-accent-foreground" 
                 : "bg-background/80 text-foreground opacity-0 group-hover:opacity-100"
             }`}
           >
-            <Heart className={`h-5 w-5 ${liked ? "fill-current" : ""}`} />
+            <Heart className={`h-3.5 w-3.5 md:h-5 md:w-5 ${liked ? "fill-current" : ""}`} />
           </button>
 
           {/* Quick Add Button */}
@@ -79,14 +79,14 @@ const ProductCard = ({ product, index = 0, isVisible = true }: ProductCardProps)
           </div>
         </div>
 
-        <div className="space-y-1">
-          <h3 className="font-medium text-lg group-hover:text-accent transition-colors">{product.name}</h3>
-          <p className="text-sm text-muted-foreground">{product.description}</p>
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm text-muted-foreground line-through">₹{product.originalPrice.toLocaleString()}</span>
-            <span className="text-xs font-semibold text-destructive bg-destructive/10 px-2 py-0.5 rounded">{product.discount}% OFF</span>
+        <div className="space-y-0.5 md:space-y-1">
+          <h3 className="font-medium text-sm md:text-lg group-hover:text-accent transition-colors line-clamp-1">{product.name}</h3>
+          <p className="text-xs md:text-sm text-muted-foreground hidden md:block">{product.description}</p>
+          <div className="flex items-center gap-1 md:gap-2 flex-wrap">
+            <span className="text-xs text-muted-foreground line-through">₹{product.originalPrice.toLocaleString()}</span>
+            <span className="text-[10px] md:text-xs font-semibold text-destructive bg-destructive/10 px-1.5 md:px-2 py-0.5 rounded">{product.discount}% OFF</span>
           </div>
-          <p className="text-base font-semibold text-foreground">₹{product.price.toLocaleString()}</p>
+          <p className="text-sm md:text-base font-semibold text-foreground">₹{product.price.toLocaleString()}</p>
         </div>
       </Link>
     </article>
