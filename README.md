@@ -27,4 +27,6 @@ VITE_COLLECTION_WOMEN_IMAGE_URL=https://drive.google.com/file/d/1At5j0htRBXiBoV2
 VITE_COLLECTION_ESSENTIALS_IMAGE_URL=https://drive.google.com/file/d/1EiWRUuLC9ZJ4QeOe9CBuiLqSuVbUTUUm/view?usp=drive_link
 ```
 
+All Google Sheet + Google Drive links **must be publicly accessible** ("Anyone with the link") for local development and production builds. If files are private, requests to converted `drive.google.com/uc?...` URLs return HTTP `403`, which causes missing images/products.
+
 Vite config reads `website.env` and injects all `VITE_` keys during build/dev.
