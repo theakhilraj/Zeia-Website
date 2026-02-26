@@ -1,14 +1,12 @@
-import product1 from "@/assets/product-1.png";
-import product2 from "@/assets/product-2.png";
-import product3 from "@/assets/product-3.png";
-import product4 from "@/assets/product-4.png";
-import product5 from "@/assets/product-5.png";
-import product6 from "@/assets/product-6.png";
+import { getDriveDirectUrl, getGoogleSheetCsvUrl, splitPipeValues } from "@/lib/google";
+
+export type ProductCollection = "motherhood" | "women" | "essentials";
 
 export interface Product {
   id: number;
   name: string;
   itemCode: string;
+  collection: ProductCollection;
   description: string;
   price: number;
   originalPrice: number;
@@ -21,99 +19,118 @@ export interface Product {
   sizes: string[];
 }
 
-export const products: Product[] = [
-  {
-    id: 1,
-    name: "Linen Essential Shirt",
-    itemCode: "A7K2M",
-    description: "Breathable organic linen",
-    price: 2899,
-    originalPrice: 3499,
-    discount: 17,
-    image: product1,
-    images: [product1, product2, product3],
-    fabric: "100% Organic Linen",
-    care: ["Machine wash cold", "Tumble dry low", "Iron on medium heat"],
-    details: "A timeless essential crafted from premium organic linen. The relaxed fit and breathable fabric make it perfect for warm days. Features mother-of-pearl buttons and a curved hem for effortless styling.",
-    sizes: ["S", "M", "L", "XL"],
-  },
-  {
-    id: 2,
-    name: "Tailored Wool Trousers",
-    itemCode: "Q9P4L",
-    description: "Italian merino wool blend",
-    price: 4599,
-    originalPrice: 5999,
-    discount: 23,
-    image: product2,
-    images: [product2, product1, product4],
-    fabric: "80% Merino Wool, 20% Polyester",
-    care: ["Dry clean only", "Steam to refresh", "Store folded"],
-    details: "Impeccably tailored trousers in a luxurious Italian merino wool blend. The slim-straight cut offers a modern silhouette while maintaining comfort. Features a hidden clasp closure and side pockets.",
-    sizes: ["S", "M", "L", "XL"],
-  },
-  {
-    id: 3,
-    name: "Cashmere Knit Sweater",
-    itemCode: "R3T8X",
-    description: "100% Mongolian cashmere",
-    price: 6199,
-    originalPrice: 7999,
-    discount: 22,
-    image: product3,
-    images: [product3, product5, product6],
-    fabric: "100% Mongolian Cashmere",
-    care: ["Hand wash cold", "Lay flat to dry", "Store folded with cedar"],
-    details: "Luxuriously soft sweater knitted from the finest Mongolian cashmere. The relaxed fit and ribbed details create a refined yet effortless look. A versatile piece that elevates any wardrobe.",
-    sizes: ["S", "M", "L", "XL"],
-  },
-  {
-    id: 4,
-    name: "Linen Blazer",
-    itemCode: "N5V1B",
-    description: "Relaxed fit, unlined",
-    price: 6999,
-    originalPrice: 8999,
-    discount: 22,
-    image: product4,
-    images: [product4, product1, product2],
-    fabric: "100% European Linen",
-    care: ["Dry clean recommended", "Steam to remove wrinkles", "Hang to store"],
-    details: "An unstructured blazer that bridges casual and formal with ease. Crafted from European linen with a relaxed fit and patch pockets. The unlined construction ensures breathability.",
-    sizes: ["S", "M", "L", "XL"],
-  },
-  {
-    id: 5,
-    name: "Organic Cotton Tee",
-    itemCode: "Z6H4C",
-    description: "GOTS certified organic",
-    price: 1499,
-    originalPrice: 1999,
-    discount: 25,
-    image: product5,
-    images: [product5, product6, product3],
-    fabric: "100% GOTS Certified Organic Cotton",
-    care: ["Machine wash cold", "Tumble dry low", "Iron on low heat"],
-    details: "The perfect everyday tee, crafted from GOTS certified organic cotton. Features a classic crew neck, relaxed fit, and reinforced seams for lasting wear. Available in essential neutral tones.",
-    sizes: ["S", "M", "L", "XL"],
-  },
-  {
-    id: 6,
-    name: "Linen Shorts",
-    itemCode: "M2J7D",
-    description: "Lightweight summer essential",
-    price: 2399,
-    originalPrice: 2999,
-    discount: 20,
-    image: product6,
-    images: [product6, product5, product1],
-    fabric: "100% Organic Linen",
-    care: ["Machine wash cold", "Tumble dry low", "Iron on medium heat"],
-    details: "Effortless summer shorts in lightweight organic linen. Features an elastic waist with drawstring, side pockets, and a relaxed fit. The perfect companion for warm-weather days.",
-    sizes: ["S", "M", "L", "XL"],
-  },
-];
+const normalizeHeader = (header: string) =>
+  header.trim().toLowerCase().replace(/\s+/g, " ");
 
-export const getProductById = (id: number): Product | undefined => {
-  return products.find((product) => product.id === id);
+const csvRowToArray = (row: string): string[] => {
+  const values: string[] = [];
+  let current = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < row.length; i += 1) {
+    const char = row[i];
+
+    if (char === '"') {
+      const nextChar = row[i + 1];
+      if (inQuotes && nextChar === '"') {
+        current += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === "," && !inQuotes) {
+      values.push(current.trim());
+      current = "";
+      continue;
+    }
+
+    current += char;
+  }
+
+  values.push(current.trim());
+  return values;
+};
+
+const toNumber = (value?: string): number => {
+  const parsed = Number((value || "").replace(/[^\d.-]/g, ""));
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+
+const normalizeCollection = (value?: string): ProductCollection => {
+  const normalized = (value || "").trim().toLowerCase();
+  if (normalized === "motherhood" || normalized === "women" || normalized === "essentials") {
+    return normalized;
+  }
+  return "essentials";
+};
+
+const parseProductsCsv = (csvText: string): Product[] => {
+  const lines = csvText
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (lines.length < 2) return [];
+
+  const headers = csvRowToArray(lines[0]).map(normalizeHeader);
+  const headerMap = new Map(headers.map((header, index) => [header, index]));
+
+  const getValue = (values: string[], ...headers: string[]): string => {
+    for (const header of headers) {
+      const index = headerMap.get(header);
+      if (typeof index === "number") {
+        return values[index] || "";
+      }
+    }
+
+    return "";
+  };
+
+  return lines
+    .slice(1)
+    .map((line) => {
+      const values = csvRowToArray(line);
+      const image1 = getDriveDirectUrl(getValue(values, "image1"));
+      const image2 = getDriveDirectUrl(getValue(values, "image2"));
+      const image3 = getDriveDirectUrl(getValue(values, "image3"));
+      const images = [image1, image2, image3].filter(Boolean);
+
+      const product: Product = {
+        id: toNumber(getValue(values, "id")),
+        name: getValue(values, "name"),
+        itemCode: getValue(values, "item code", "itemcode"),
+        collection: normalizeCollection(getValue(values, "collections")),
+        description: getValue(values, "description"),
+        price: toNumber(getValue(values, "price")),
+        originalPrice: toNumber(getValue(values, "original price", "originalprice")),
+        discount: toNumber(getValue(values, "discount")),
+        image: images[0] || "",
+        images,
+        fabric: getValue(values, "fabric"),
+        care: splitPipeValues(getValue(values, "care")),
+        details: getValue(values, "details"),
+        sizes: splitPipeValues(getValue(values, "sizes")),
+      };
+
+      return product;
+    })
+    .filter((product) => product.id > 0 && Boolean(product.name) && product.images.length > 0);
+};
+
+export const fetchProductsFromSheet = async (): Promise<Product[]> => {
+  const envUrl = import.meta.env.VITE_PRODUCTS_SHEET_CSV_URL as string | undefined;
+  const csvUrl = getGoogleSheetCsvUrl(envUrl);
+
+  if (!csvUrl) return [];
+
+  const response = await fetch(csvUrl);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch products sheet (${response.status})`);
+  }
+
+  const csvText = await response.text();
+  return parseProductsCsv(csvText);
 };

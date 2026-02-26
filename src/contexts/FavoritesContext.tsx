@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { Product } from "@/data/products";
 
 interface FavoritesContextType {
   favorites: string[];

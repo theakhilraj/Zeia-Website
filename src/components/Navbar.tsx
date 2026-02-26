@@ -4,7 +4,7 @@ import { Menu, X, ShoppingBag, Heart } from "lucide-react";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
-import zieaLogo from "@/assets/ziea-logo.png";
+import { siteImages } from "@/data/siteContent";
 import SearchDialog from "./SearchDialog";
 
 const Navbar = () => {
@@ -61,7 +61,7 @@ const Navbar = () => {
         <div className="container-custom">
           <div className="flex items-center justify-between h-20">
             <Link to="/">
-              <img src={zieaLogo} alt="ZIEA" className="h-10" />
+              <img src={siteImages.logo} alt="ZIEA" className="h-10" />
             </Link>
 
             <div className="hidden lg:flex items-center gap-8">

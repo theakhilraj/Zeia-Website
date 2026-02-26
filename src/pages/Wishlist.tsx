@@ -6,11 +6,12 @@ import FooterSection from "@/components/FooterSection";
 import ProductCard from "@/components/ProductCard";
 import CartDrawer from "@/components/CartDrawer";
 import { useFavorites } from "@/contexts/FavoritesContext";
-import { products } from "@/data/products";
+import { useProducts } from "@/contexts/ProductsContext";
 
 const Wishlist = () => {
   const { favorites } = useFavorites();
-  
+  const { products } = useProducts();
+
   const favoriteProducts = products.filter((product) =>
     favorites.includes(String(product.id))
   );
@@ -19,7 +20,7 @@ const Wishlist = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <CartDrawer />
-      
+
       <main className="pt-32 pb-20">
         <div className="container-custom">
           {/* Header */}

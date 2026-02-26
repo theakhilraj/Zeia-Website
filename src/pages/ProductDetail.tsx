@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronRight, Minus, Plus, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getProductById, products } from "@/data/products";
+import { useProducts } from "@/contexts/ProductsContext";
 import { useCart } from "@/contexts/CartContext";
 import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
@@ -12,8 +12,8 @@ import { toast } from "sonner";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = getProductById(Number(id));
-  const { addItem } = useCart();
+  const { products } = useProducts();
+  const product = products.find((item) => item.id === Number(id)); const { addItem } = useCart();
 
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
@@ -128,8 +128,8 @@ const ProductDetail = () => {
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
                     className={`w-20 h-24 rounded-lg overflow-hidden transition-all duration-200 ${selectedImage === idx
-                        ? "ring-2 ring-accent ring-offset-2"
-                        : "opacity-60 hover:opacity-100"
+                      ? "ring-2 ring-accent ring-offset-2"
+                      : "opacity-60 hover:opacity-100"
                       }`}
                   >
                     <img
@@ -172,8 +172,8 @@ const ProductDetail = () => {
                       key={size}
                       onClick={() => setSelectedSize(size)}
                       className={`w-14 h-14 rounded-lg border-2 font-medium transition-all duration-200 ${selectedSize === size
-                          ? "border-accent bg-accent text-accent-foreground scale-105"
-                          : "border-border hover:border-foreground"
+                        ? "border-accent bg-accent text-accent-foreground scale-105"
+                        : "border-border hover:border-foreground"
                         }`}
                     >
                       {size}

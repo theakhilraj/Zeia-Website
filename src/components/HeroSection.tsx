@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-image.png";
+import { siteImages } from "@/data/siteContent";
 
 const HeroSection = () => {
   return (
@@ -8,7 +8,7 @@ const HeroSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src={heroImage}
+          src={siteImages.hero}
           alt="Elegant fashion model wearing premium clothing"
           className="w-full h-full object-cover object-center"
         />

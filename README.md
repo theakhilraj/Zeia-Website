@@ -1,49 +1,30 @@
 # Zeia Website
 
-## Google Sheet product source
+## Product data from Google Sheet
 
-The website now fetches product details from a Google Sheet (CSV publish URL) using these columns:
+The website now reads product details from Google Sheet CSV instead of hardcoding products in code.
+
+Required columns in the sheet:
 
 `id, name, item Code, collections, description, price, original Price, discount, image1, image2, image3, fabric, care, details, sizes`
 
-- `collections` accepts: `motherhood`, `women`, `essentials`
-- `image1`, `image2`, `image3` must be public Google Drive image links (recommended format: `https://drive.google.com/uc?export=view&id=<FILE_ID>`)
-- `care` and `sizes` should use `|` as separator (example: `Machine wash cold|Do not bleach`)
+- `collections` values: `motherhood`, `women`, `essentials`
+- `image1`, `image2`, `image3` should be Google Drive links (file/view links are supported and converted automatically)
+- `care` and `sizes` should use `|` separator (example: `Machine wash cold|Do not bleach`)
 
-### Google Sheet link
+Configured sheet:
+## website.env
 
-Use this template and fill your products:
-
-- Sheet (editable template): https://docs.google.com/spreadsheets/d/1M6nE2lBy6f0K3QhR5j7ZgJZxY4QmKp8uWnT2v9D0aBc/edit?usp=sharing
-- CSV publish URL format: `https://docs.google.com/spreadsheets/d/<SHEET_ID>/gviz/tq?tqx=out:csv`
-
-## Where to paste image links (non-product website images)
-
-Paste these in your `.env` file (or deployment env vars):
-
-- `VITE_SITE_LOGO_URL` → Navbar + Footer logo
-- `VITE_SITE_HERO_IMAGE_URL` → Home hero + Collection “All Products” banner
-- `VITE_COLLECTION_MOTHERHOOD_IMAGE_URL` → Motherhood collection tile/banner
-- `VITE_COLLECTION_WOMEN_IMAGE_URL` → Women collection tile/banner
-- `VITE_COLLECTION_ESSENTIALS_IMAGE_URL` → Essentials collection tile/banner
-- `VITE_LOOKBOOK_IMAGE_1_URL` ... `VITE_LOOKBOOK_IMAGE_7_URL` → Lookbook gallery images
-
-If any variable is empty, the app uses local fallback images.
-
-### Configure the app
-
-Create a `.env` file:
+Store sheet URL and website image links in `website.env` at repo root:
 
 ```bash
-VITE_PRODUCTS_SHEET_CSV_URL=https://docs.google.com/spreadsheets/d/<SHEET_ID>/gviz/tq?tqx=out:csv
+VITE_PRODUCTS_SHEET_CSV_URL=https://docs.google.com/spreadsheets/d/1Rkjtqf842fOb2sZ3C3OzbgLYIuZ_RlnNUm-L54qwmM0/edit?usp=drive_link
 
-# Optional non-product images
-VITE_SITE_LOGO_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
-VITE_SITE_HERO_IMAGE_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
-VITE_COLLECTION_MOTHERHOOD_IMAGE_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
-VITE_COLLECTION_WOMEN_IMAGE_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
-VITE_COLLECTION_ESSENTIALS_IMAGE_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
-VITE_LOOKBOOK_IMAGE_1_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
+VITE_SITE_LOGO_URL=https://drive.google.com/file/d/17r5VLA9mRcORREdqwLI5VsUOpvUilu68/view?usp=drive_link
+VITE_SITE_HERO_IMAGE_URL=https://drive.google.com/file/d/1FoyZA1yDm-zj_GSToJJ6Q5ZzVZZSmJwx/view?usp=drive_link
+VITE_COLLECTION_MOTHERHOOD_IMAGE_URL=https://drive.google.com/file/d/1CMvJy9V_yPMFJLguaBXyA6JNRNi60z3t/view?usp=drive_link
+VITE_COLLECTION_WOMEN_IMAGE_URL=https://drive.google.com/file/d/1At5j0htRBXiBoV2YQRi6PbpnW39q9Rd0/view?usp=drive_link
+VITE_COLLECTION_ESSENTIALS_IMAGE_URL=https://drive.google.com/file/d/1EiWRUuLC9ZJ4QeOe9CBuiLqSuVbUTUUm/view?usp=drive_link
 ```
 
-If `VITE_PRODUCTS_SHEET_CSV_URL` is missing/unreachable, the app falls back to bundled sample product data that already uses Google Drive image links.
+Vite config reads `website.env` and injects all `VITE_` keys during build/dev.

@@ -1,9 +1,10 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { products } from "@/data/products";
+import { useProducts } from "@/contexts/ProductsContext";
 import ProductCard from "@/components/ProductCard";
 
 const NewArrivals = () => {
   const [sectionRef, isVisible] = useScrollAnimation<HTMLElement>();
+  const { products } = useProducts();
 
   return (
     <section

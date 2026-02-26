@@ -10,11 +10,12 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { products } from "@/data/products";
+import { useProducts } from "@/contexts/ProductsContext";
 
 const SearchDialog = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { products } = useProducts();
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {

@@ -1,6 +1,6 @@
 import { Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
-import zieaLogo from "@/assets/ziea-logo.png";
+import { siteImages } from "@/data/siteContent";
 
 const footerLinks = {
   shop: [
@@ -30,7 +30,7 @@ const FooterSection = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <a href="#home">
-              <img src={zieaLogo} alt="ZIEA" className="h-10" />
+              <img src={siteImages.logo} alt="ZIEA" className="h-10" />
             </a>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
               Timeless essentials for everyday wear.

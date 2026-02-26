@@ -2,9 +2,7 @@ import React from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import collectionMotherhood from "@/assets/collection-mom.png";
-import collectionWomen from "@/assets/collection-women.png";
-import collectionEssentials from "@/assets/collection-essentials.png";
+import { siteImages } from "@/data/siteContent";
 
 const collections = [
   {
@@ -12,21 +10,21 @@ const collections = [
     name: "Motherhood",
     slug: "motherhood",
     description: "Celebrate the beautiful journey",
-    image: collectionMotherhood,
+    image: siteImages.collectionMotherhood,
   },
   {
     id: 2,
     name: "Women",
     slug: "women",
     description: "Elegant pieces with timeless appeal",
-    image: collectionWomen,
+    image: siteImages.collectionWomen,
   },
   {
     id: 3,
     name: "Essentials",
     slug: "essentials",
     description: "Wardrobe staples, elevated",
-    image: collectionEssentials,
+    image: siteImages.collectionEssentials,
   },
 ];
 
