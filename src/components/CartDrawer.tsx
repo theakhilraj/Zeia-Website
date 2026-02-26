@@ -2,10 +2,23 @@ import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react"
 
 const CartDrawer = () => {
   const { items, isOpen, closeCart, updateQuantity, removeItem, subtotal, totalItems } = useCart();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   const handleContinueShopping = () => {
     closeCart();
@@ -13,12 +26,12 @@ const CartDrawer = () => {
 
   const handleCheckout = () => {
     // Build WhatsApp message with cart details
-    const orderDetails = items.map((item) => 
+    const orderDetails = items.map((item) =>
       `• ${item.name} (Size: ${item.size}) x${item.quantity} - ₹${(item.price * item.quantity).toLocaleString()}`
     ).join('\n');
-    
+
     const message = `🛒 *New Order from ZIEA*\n\n*Order Details:*\n${orderDetails}\n\n*Subtotal:* ₹${subtotal.toLocaleString()}\n\nPlease confirm my order.`;
-    
+
     const whatsappUrl = `https://wa.me/918301027765?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     closeCart();
@@ -33,17 +46,15 @@ const CartDrawer = () => {
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-foreground/40 backdrop-blur-sm z-50 transition-opacity duration-300 ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-foreground/40 backdrop-blur-sm z-[100] transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
         onClick={closeCart}
       />
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-full max-w-md bg-background z-50 shadow-2xl transition-transform duration-300 ease-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full w-full max-w-md bg-background z-[110] shadow-2xl transition-transform duration-300 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="flex flex-col h-full">
           {/* Header */}

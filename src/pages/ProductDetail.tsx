@@ -49,7 +49,7 @@ const ProductDetail = () => {
     }
 
     setIsAddingToCart(true);
-    
+
     // Add animation delay
     setTimeout(() => {
       for (let i = 0; i < quantity; i++) {
@@ -109,14 +109,13 @@ const ProductDetail = () => {
                 <img
                   src={product.images[selectedImage]}
                   alt={product.name}
-                  className={`w-full h-full object-cover transition-transform duration-300 ${
-                    isZoomed ? "scale-150" : "scale-100"
-                  }`}
+                  className={`w-full h-full object-cover transition-transform duration-300 ${isZoomed ? "scale-150" : "scale-100"
+                    }`}
                   style={
                     isZoomed
                       ? {
-                          transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
-                        }
+                        transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                      }
                       : undefined
                   }
                 />
@@ -128,11 +127,10 @@ const ProductDetail = () => {
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
-                    className={`w-20 h-24 rounded-lg overflow-hidden transition-all duration-200 ${
-                      selectedImage === idx
+                    className={`w-20 h-24 rounded-lg overflow-hidden transition-all duration-200 ${selectedImage === idx
                         ? "ring-2 ring-accent ring-offset-2"
                         : "opacity-60 hover:opacity-100"
-                    }`}
+                      }`}
                   >
                     <img
                       src={img}
@@ -149,6 +147,7 @@ const ProductDetail = () => {
               <h1 className="font-display text-3xl md:text-4xl font-medium mb-2">
                 {product.name}
               </h1>
+              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Item Code: {product.itemCode}</p>
               <div className="flex items-center gap-3 mb-6">
                 <span className="text-lg text-muted-foreground line-through">₹{product.originalPrice.toLocaleString()}</span>
                 <span className="text-sm font-semibold text-destructive bg-destructive/10 px-2 py-1 rounded">{product.discount}% OFF</span>
@@ -172,11 +171,10 @@ const ProductDetail = () => {
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`w-14 h-14 rounded-lg border-2 font-medium transition-all duration-200 ${
-                        selectedSize === size
+                      className={`w-14 h-14 rounded-lg border-2 font-medium transition-all duration-200 ${selectedSize === size
                           ? "border-accent bg-accent text-accent-foreground scale-105"
                           : "border-border hover:border-foreground"
-                      }`}
+                        }`}
                     >
                       {size}
                     </button>
@@ -211,9 +209,8 @@ const ProductDetail = () => {
                 <Button
                   variant="accent"
                   size="xl"
-                  className={`flex-1 transition-all duration-300 ${
-                    isAddingToCart ? "scale-95 opacity-80" : "active:scale-95"
-                  }`}
+                  className={`flex-1 transition-all duration-300 ${isAddingToCart ? "scale-95 opacity-80" : "active:scale-95"
+                    }`}
                   onClick={handleAddToCart}
                   disabled={isAddingToCart}
                 >

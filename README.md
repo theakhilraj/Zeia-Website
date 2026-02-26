@@ -1,73 +1,49 @@
-# Welcome to your Lovable project
+# Zeia Website
 
-## Project info
+## Google Sheet product source
 
-**URL**: https://lovable.dev/projects/c37b0a9a-be0c-44b3-96ae-2597d2566f5a
+The website now fetches product details from a Google Sheet (CSV publish URL) using these columns:
 
-## How can I edit this code?
+`id, name, item Code, collections, description, price, original Price, discount, image1, image2, image3, fabric, care, details, sizes`
 
-There are several ways of editing your application.
+- `collections` accepts: `motherhood`, `women`, `essentials`
+- `image1`, `image2`, `image3` must be public Google Drive image links (recommended format: `https://drive.google.com/uc?export=view&id=<FILE_ID>`)
+- `care` and `sizes` should use `|` as separator (example: `Machine wash cold|Do not bleach`)
 
-**Use Lovable**
+### Google Sheet link
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/c37b0a9a-be0c-44b3-96ae-2597d2566f5a) and start prompting.
+Use this template and fill your products:
 
-Changes made via Lovable will be committed automatically to this repo.
+- Sheet (editable template): https://docs.google.com/spreadsheets/d/1M6nE2lBy6f0K3QhR5j7ZgJZxY4QmKp8uWnT2v9D0aBc/edit?usp=sharing
+- CSV publish URL format: `https://docs.google.com/spreadsheets/d/<SHEET_ID>/gviz/tq?tqx=out:csv`
 
-**Use your preferred IDE**
+## Where to paste image links (non-product website images)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Paste these in your `.env` file (or deployment env vars):
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- `VITE_SITE_LOGO_URL` → Navbar + Footer logo
+- `VITE_SITE_HERO_IMAGE_URL` → Home hero + Collection “All Products” banner
+- `VITE_COLLECTION_MOTHERHOOD_IMAGE_URL` → Motherhood collection tile/banner
+- `VITE_COLLECTION_WOMEN_IMAGE_URL` → Women collection tile/banner
+- `VITE_COLLECTION_ESSENTIALS_IMAGE_URL` → Essentials collection tile/banner
+- `VITE_LOOKBOOK_IMAGE_1_URL` ... `VITE_LOOKBOOK_IMAGE_7_URL` → Lookbook gallery images
 
-Follow these steps:
+If any variable is empty, the app uses local fallback images.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Configure the app
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Create a `.env` file:
 
-# Step 3: Install the necessary dependencies.
-npm i
+```bash
+VITE_PRODUCTS_SHEET_CSV_URL=https://docs.google.com/spreadsheets/d/<SHEET_ID>/gviz/tq?tqx=out:csv
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# Optional non-product images
+VITE_SITE_LOGO_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
+VITE_SITE_HERO_IMAGE_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
+VITE_COLLECTION_MOTHERHOOD_IMAGE_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
+VITE_COLLECTION_WOMEN_IMAGE_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
+VITE_COLLECTION_ESSENTIALS_IMAGE_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
+VITE_LOOKBOOK_IMAGE_1_URL=https://drive.google.com/uc?export=view&id=<FILE_ID>
 ```
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/c37b0a9a-be0c-44b3-96ae-2597d2566f5a) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+If `VITE_PRODUCTS_SHEET_CSV_URL` is missing/unreachable, the app falls back to bundled sample product data that already uses Google Drive image links.

@@ -8,6 +8,7 @@ import product6 from "@/assets/product-6.png";
 export interface Product {
   id: number;
   name: string;
+  itemCode: string;
   description: string;
   price: number;
   originalPrice: number;
@@ -24,6 +25,7 @@ export const products: Product[] = [
   {
     id: 1,
     name: "Linen Essential Shirt",
+    itemCode: "A7K2M",
     description: "Breathable organic linen",
     price: 2899,
     originalPrice: 3499,
@@ -38,6 +40,7 @@ export const products: Product[] = [
   {
     id: 2,
     name: "Tailored Wool Trousers",
+    itemCode: "Q9P4L",
     description: "Italian merino wool blend",
     price: 4599,
     originalPrice: 5999,
@@ -52,6 +55,7 @@ export const products: Product[] = [
   {
     id: 3,
     name: "Cashmere Knit Sweater",
+    itemCode: "R3T8X",
     description: "100% Mongolian cashmere",
     price: 6199,
     originalPrice: 7999,
@@ -66,6 +70,7 @@ export const products: Product[] = [
   {
     id: 4,
     name: "Linen Blazer",
+    itemCode: "N5V1B",
     description: "Relaxed fit, unlined",
     price: 6999,
     originalPrice: 8999,
@@ -80,6 +85,7 @@ export const products: Product[] = [
   {
     id: 5,
     name: "Organic Cotton Tee",
+    itemCode: "Z6H4C",
     description: "GOTS certified organic",
     price: 1499,
     originalPrice: 1999,
@@ -94,6 +100,7 @@ export const products: Product[] = [
   {
     id: 6,
     name: "Linen Shorts",
+    itemCode: "M2J7D",
     description: "Lightweight summer essential",
     price: 2399,
     originalPrice: 2999,

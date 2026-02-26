@@ -30,17 +30,12 @@ const HeroSection = () => {
           </p>
           <div className="flex flex-wrap gap-4 opacity-0 animate-fade-up stagger-4">
             <Button variant="accent" size="lg" asChild>
-              <Link to="/collection/women">Shop Collection</Link>
+              <Link to="/collection/all">Shop Collection</Link>
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 animate-fade-up" style={{ animationDelay: '0.8s' }}>
-        <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-foreground/40 to-transparent" />
-      </div>
     </section>
   );
 };

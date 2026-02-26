@@ -15,14 +15,15 @@ const Navbar = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -50,93 +51,95 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-        ? "bg-background/95 backdrop-blur-md shadow-sm"
-        : "bg-transparent"
-        }`}
-    >
-      <div className="container-custom">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/">
-            <img src={zieaLogo} alt="ZIEA" className="h-10" />
-          </Link>
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-[80] transition-all duration-300 ${isScrolled
+          ? "bg-background/95 backdrop-blur-md shadow-sm"
+          : "bg-transparent"
+          }`}
+      >
+        <div className="container-custom">
+          <div className="flex items-center justify-between h-20">
+            <Link to="/">
+              <img src={zieaLogo} alt="ZIEA" className="h-10" />
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) =>
-              link.href.startsWith("#") ? (
-                <button
-                  key={link.name}
-                  onClick={() => handleNavClick(link.href)}
-                  className="nav-link text-sm tracking-wide"
-                >
-                  {link.name}
-                </button>
-              ) : (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className="nav-link text-sm tracking-wide"
-                >
-                  {link.name}
-                </Link>
-              )
-            )}
-          </div>
+            <div className="hidden lg:flex items-center gap-8">
+              {navLinks.map((link) =>
+                link.href.startsWith("#") ? (
+                  <button
+                    key={link.name}
+                    onClick={() => handleNavClick(link.href)}
+                    className="nav-link text-sm tracking-wide"
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="nav-link text-sm tracking-wide"
+                  >
+                    {link.name}
+                  </Link>
+                )
+              )}
+            </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-3">
-            <SearchDialog />
-            <Button variant="accent" size="sm" className="hidden md:inline-flex">
-              Shop Now
-            </Button>
-            <Link to="/wishlist">
+            <div className="flex items-center gap-3">
+              <SearchDialog />
+
+              <Button variant="accent" size="sm" className="hidden md:inline-flex" asChild>
+                <Link to="/collection/all">Shop Now</Link>
+              </Button>
+
+              <Link to="/wishlist">
+                <Button variant="ghost" size="icon" className="relative">
+                  <Heart className="h-5 w-5" />
+                  <span
+                    className={`absolute -top-1 -right-1 h-4 w-4 bg-accent text-accent-foreground text-[10px] rounded-full flex items-center justify-center font-medium transition-transform duration-200 ${favorites.length > 0 ? "scale-100" : "scale-0"
+                      }`}
+                  >
+                    {favorites.length}
+                  </span>
+                </Button>
+              </Link>
+
               <Button
                 variant="ghost"
                 size="icon"
                 className="relative"
+                onClick={openCart}
               >
-                <Heart className="h-5 w-5" />
+                <ShoppingBag className="h-5 w-5" />
                 <span
-                  className={`absolute -top-1 -right-1 h-4 w-4 bg-accent text-accent-foreground text-[10px] rounded-full flex items-center justify-center font-medium transition-transform duration-200 ${favorites.length > 0 ? "scale-100" : "scale-0"
+                  className={`absolute -top-1 -right-1 h-4 w-4 bg-accent text-accent-foreground text-[10px] rounded-full flex items-center justify-center font-medium transition-transform duration-200 ${totalItems > 0 ? "scale-100" : "scale-0"
                     }`}
                 >
-                  {favorites.length}
+                  {totalItems}
                 </span>
               </Button>
-            </Link>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative"
-              onClick={openCart}
-            >
-              <ShoppingBag className="h-5 w-5" />
-              <span
-                className={`absolute -top-1 -right-1 h-4 w-4 bg-accent text-accent-foreground text-[10px] rounded-full flex items-center justify-center font-medium transition-transform duration-200 ${totalItems > 0 ? "scale-100" : "scale-0"
-                  }`}
-              >
-                {totalItems}
-              </span>
-            </Button>
 
-            {/* Mobile Menu Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="lg:hidden relative z-[90]"
+                onClick={() => setIsOpen((prev) => !prev)}
+              >
+                {isOpen ? (
+                  <X className="h-5 w-5" />
+                ) : (
+                  <Menu className="h-5 w-5" />
+                )}
+              </Button>
+            </div>
           </div>
         </div>
+      </nav>
 
-        {/* Mobile Navigation - Full Screen Overlay */}
-        {isOpen && (
-          <div className="lg:hidden fixed inset-0 top-20 z-50 bg-background animate-fade-in flex flex-col items-center justify-center gap-6">
+      {isOpen && (
+        <div className="lg:hidden fixed inset-0 z-[70] bg-background animate-fade-in pt-24">
+          <div className="h-full flex flex-col items-center justify-center gap-6">
             {navLinks.map((link) =>
               link.href.startsWith("#") ? (
                 <button
@@ -157,13 +160,16 @@ const Navbar = () => {
                 </Link>
               )
             )}
-            <Button variant="accent" size="lg" className="mt-6 w-64">
-              Shop Now
+
+            <Button variant="accent" size="lg" className="mt-6 w-64" asChild>
+              <Link to="/collection/all" onClick={() => setIsOpen(false)}>
+                Shop Now
+              </Link>
             </Button>
           </div>
-        )}
-      </div>
-    </nav>
+        </div>
+      )}
+    </>
   );
 };
 
