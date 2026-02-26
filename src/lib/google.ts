@@ -1,19 +1,33 @@
+export const extractDriveFileId = (url?: string): string => {
+    if (!url) return "";
+
+    const trimmed = url.trim();
+    if (!trimmed || !trimmed.includes("drive.google.com")) return "";
+
+    const fileMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileMatch?.[1]) {
+        return fileMatch[1];
+    }
+
+    const idMatch = trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (idMatch?.[1]) {
+        return idMatch[1];
+    }
+
+    return "";
+};
+
 export const getDriveDirectUrl = (url?: string): string => {
     if (!url) return "";
 
     const trimmed = url.trim();
     if (!trimmed) return "";
 
-    if (trimmed.includes("drive.google.com")) {
-        const fileMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-        if (fileMatch?.[1]) {
-            return `https://drive.google.com/uc?export=view&id=${fileMatch[1]}`;
-        }
-
-        const idMatch = trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-        if (idMatch?.[1]) {
-            return `https://drive.google.com/uc?export=view&id=${idMatch[1]}`;
-        }
+    const fileId = extractDriveFileId(trimmed);
+    if (fileId) {
+        // The thumbnail endpoint is usually more reliable in <img> tags than
+        // the legacy /uc endpoint for publicly shared Google Drive image files.
+        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
     }
 
     return trimmed;
