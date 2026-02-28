@@ -22,6 +22,7 @@ const ProductCard = ({ product, index = 0, isVisible = true }: ProductCardProps)
     e.stopPropagation();
     addItem({
       id: product.id,
+      itemCode: product.itemCode,
       name: product.name,
       price: product.price,
       image: product.image,
@@ -58,8 +59,8 @@ const ProductCard = ({ product, index = 0, isVisible = true }: ProductCardProps)
           <button
             onClick={handleFavorite}
             className={`absolute top-2 right-2 md:top-4 md:right-4 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-all duration-300 ${liked
-                ? "bg-accent text-accent-foreground"
-                : "bg-background/80 text-foreground opacity-0 group-hover:opacity-100"
+              ? "bg-accent text-accent-foreground"
+              : "bg-background/80 text-foreground opacity-0 group-hover:opacity-100"
               }`}
           >
             <Heart className={`h-3.5 w-3.5 md:h-5 md:w-5 ${liked ? "fill-current" : ""}`} />

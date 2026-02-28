@@ -27,7 +27,7 @@ const CartDrawer = () => {
   const handleCheckout = () => {
     // Build WhatsApp message with cart details
     const orderDetails = items.map((item) =>
-      `• ${item.name} (Size: ${item.size}) x${item.quantity} - ₹${(item.price * item.quantity).toLocaleString()}`
+      `• ${item.name} (Item Code: ${item.itemCode}, Size: ${item.size}) x${item.quantity} - ₹${(item.price * item.quantity).toLocaleString()}`
     ).join('\n');
 
     const message = `🛒 *New Order from ZIEA*\n\n*Order Details:*\n${orderDetails}\n\n*Subtotal:* ₹${subtotal.toLocaleString()}\n\nPlease confirm my order.`;
@@ -110,6 +110,7 @@ const CartDrawer = () => {
                         >
                           {item.name}
                         </button>
+                        <p className="text-xs uppercase tracking-wide text-muted-foreground mt-1">Item Code: {item.itemCode}</p>
                         <p className="text-sm text-muted-foreground mt-1">Size: {item.size}</p>
                         <p className="text-sm font-medium mt-1">₹{item.price.toLocaleString()}</p>
                       </div>
