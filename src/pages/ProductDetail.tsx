@@ -22,6 +22,7 @@ const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+  const [lensPosition, setLensPosition] = useState({ x: 0, y: 0 });
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   const sizeGuideImage = getDriveDirectUrl(
@@ -77,10 +78,22 @@ const ProductDetail = () => {
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setZoomPosition({ x, y });
+    const rawX = e.clientX - rect.left;
+    const rawY = e.clientY - rect.top;
+
+    const x = Math.max(0, Math.min(rawX, rect.width));
+    const y = Math.max(0, Math.min(rawY, rect.height));
+
+    setZoomPosition({
+      x: (x / rect.width) * 100,
+      y: (y / rect.height) * 100,
+    });
+    setLensPosition({ x, y });
   };
+
+  const lensSize = 170;
+  const lensOffset = lensSize / 2;
+  const zoomScale = 240;
 
   return (
     <div className="min-h-screen bg-background">
@@ -116,7 +129,7 @@ const ProductDetail = () => {
                 <img
                   src={product.images[selectedImage]}
                   alt={product.name}
-                  className={`w-full h-full object-cover transition-transform duration-300 ${isZoomed ? "scale-150" : "scale-100"
+                  className={`w-full h-full object-cover transition-transform duration-300 ${isZoomed ? "scale-110" : "scale-100"
                     }`}
                   style={
                     isZoomed
@@ -126,6 +139,45 @@ const ProductDetail = () => {
                       : undefined
                   }
                 />
+                <div className="relative">
+                  <div
+                    className="relative aspect-[3/4] overflow-hidden bg-secondary rounded-xl cursor-crosshair"
+                    onMouseEnter={() => setIsZoomed(true)}
+                    onMouseLeave={() => setIsZoomed(false)}
+                    onMouseMove={handleMouseMove}
+                  >
+                    <img
+                      src={product.images[selectedImage]}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+
+                    {isZoomed && (
+                      <div
+                        className="pointer-events-none absolute border border-foreground/30 bg-background/20"
+                        style={{
+                          width: `${lensSize}px`,
+                          height: `${lensSize}px`,
+                          left: `clamp(0px, ${lensPosition.x - lensOffset}px, calc(100% - ${lensSize}px))`,
+                          top: `clamp(0px, ${lensPosition.y - lensOffset}px, calc(100% - ${lensSize}px))`,
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  {isZoomed && (
+                    <div
+                      className="hidden lg:block pointer-events-none absolute top-0 left-[calc(100%+1.5rem)] w-[430px] aspect-[3/4] overflow-hidden rounded-xl border border-border bg-secondary shadow-2xl z-30"
+                      style={{
+                        backgroundImage: `url(${product.images[selectedImage]})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: `${zoomScale}%`,
+                        backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                      }}
+                    />
+                  )}
+                </div>
+
               </div>
 
               {/* Thumbnails */}
