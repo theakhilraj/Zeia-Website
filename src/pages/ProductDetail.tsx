@@ -8,6 +8,8 @@ import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
 import CartDrawer from "@/components/CartDrawer";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { getDriveDirectUrl } from "@/lib/google";
 import { toast } from "sonner";
 
 const ProductDetail = () => {
@@ -22,7 +24,11 @@ const ProductDetail = () => {
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
-  // Scroll to top when component mounts or product changes
+  const sizeGuideImage = getDriveDirectUrl(
+    (import.meta.env.VITE_SIZE_GUIDE_IMAGE_URL as string | undefined)
+    ?? "https://drive.google.com/file/d/1ECpojHy8Nfm-_JSGsnhMLxTbGtGupoth/view?usp=sharing",
+  );
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
@@ -163,9 +169,27 @@ const ProductDetail = () => {
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
                   <span className="font-medium">Size</span>
-                  <button className="text-sm text-muted-foreground hover:text-foreground underline transition-colors">
-                    Size Guide
-                  </button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="text-sm text-muted-foreground hover:text-foreground underline transition-colors">
+                        Size Guide
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-3xl p-3 sm:p-5">
+                      <DialogTitle className="mb-3">Size Guide</DialogTitle>
+                      {sizeGuideImage ? (
+                        <img
+                          src={sizeGuideImage}
+                          alt="Size guide"
+                          className="w-full h-auto rounded-md"
+                        />
+                      ) : (
+                        <p className="text-sm text-muted-foreground">
+                          Size guide image is not configured.
+                        </p>
+                      )}
+                    </DialogContent>
+                  </Dialog>
                 </div>
                 <div className="flex gap-3">
                   {product.sizes.map((size) => (

@@ -26,6 +26,7 @@ VITE_SITE_HERO_IMAGE_URL=https://drive.google.com/file/d/1FoyZA1yDm-zj_GSToJJ6Q5
 VITE_COLLECTION_MOTHERHOOD_IMAGE_URL=https://drive.google.com/file/d/1CMvJy9V_yPMFJLguaBXyA6JNRNi60z3t/view?usp=drive_link
 VITE_COLLECTION_WOMEN_IMAGE_URL=https://drive.google.com/file/d/1At5j0htRBXiBoV2YQRi6PbpnW39q9Rd0/view?usp=drive_link
 VITE_COLLECTION_ESSENTIALS_IMAGE_URL=https://drive.google.com/file/d/1EiWRUuLC9ZJ4QeOe9CBuiLqSuVbUTUUm/view?usp=drive_link
+VITE_SIZE_GUIDE_IMAGE_URL=https://drive.google.com/file/d/1ECpojHy8Nfm-_JSGsnhMLxTbGtGupoth/view?usp=drive_link
 ```
 
 All Google Sheet + Google Drive links **must be publicly accessible** ("Anyone with the link") for local development and production builds. If files are private, requests to converted `drive.google.com/uc?...` URLs return HTTP `403`, which causes missing images/products.
