@@ -1,5 +1,4 @@
 # Zeia Website
-# Zeia Website
 
 
 ## Product data from Google Sheet
