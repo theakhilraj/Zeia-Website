@@ -120,41 +120,23 @@ const ProductDetail = () => {
             {/* Image Gallery */}
             <div className="space-y-4 animate-fade-in">
               {/* Main Image */}
-              <div
-                className="relative aspect-[3/4] overflow-hidden bg-secondary rounded-xl cursor-zoom-in"
-                onMouseEnter={() => setIsZoomed(true)}
-                onMouseLeave={() => setIsZoomed(false)}
-                onMouseMove={handleMouseMove}
-              >
-                <img
-                  src={product.images[selectedImage]}
-                  alt={product.name}
-                  className={`w-full h-full object-cover transition-transform duration-300 ${isZoomed ? "scale-110" : "scale-100"
-                    }`}
-                  style={
-                    isZoomed
-                      ? {
-                        transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
-                      }
-                      : undefined
-                  }
-                />
-                <div className="relative">
-                  <div
-                    className="relative aspect-[3/4] overflow-hidden bg-secondary rounded-xl cursor-crosshair"
-                    onMouseEnter={() => setIsZoomed(true)}
-                    onMouseLeave={() => setIsZoomed(false)}
-                    onMouseMove={handleMouseMove}
-                  >
-                    <img
-                      src={product.images[selectedImage]}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
+              <div className="relative">
+                <div
+                  className="relative aspect-[3/4] overflow-hidden bg-secondary rounded-xl cursor-crosshair"
+                  onMouseEnter={() => setIsZoomed(true)}
+                  onMouseLeave={() => setIsZoomed(false)}
+                  onMouseMove={handleMouseMove}
+                >
+                  <img
+                    src={product.images[selectedImage]}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
 
-                    {isZoomed && (
+                  {isZoomed && (
+                    <>
                       <div
-                        className="pointer-events-none absolute border border-foreground/30 bg-background/20"
+                        className="pointer-events-none absolute border border-foreground/30 bg-background/20 transition-all duration-75"
                         style={{
                           width: `${lensSize}px`,
                           height: `${lensSize}px`,
@@ -162,21 +144,22 @@ const ProductDetail = () => {
                           top: `clamp(0px, ${lensPosition.y - lensOffset}px, calc(100% - ${lensSize}px))`,
                         }}
                       />
-                    )}
-                  </div>
-
-                  {isZoomed && (
-                    <div
-                      className="hidden lg:block pointer-events-none absolute top-0 left-[calc(100%+1.5rem)] w-[430px] aspect-[3/4] overflow-hidden rounded-xl border border-border bg-secondary shadow-2xl z-30"
-                      style={{
-                        backgroundImage: `url(${product.images[selectedImage]})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: `${zoomScale}%`,
-                        backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
-                      }}
-                    />
+                      <div className="pointer-events-none absolute inset-0 bg-black/10" />
+                    </>
                   )}
                 </div>
+
+                {isZoomed && (
+                  <div
+                    className="hidden lg:block pointer-events-none absolute top-0 left-[calc(100%+1.5rem)] w-[430px] aspect-[3/4] overflow-hidden rounded-xl border border-border bg-secondary shadow-2xl z-30"
+                    style={{
+                      backgroundImage: `url(${product.images[selectedImage]})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: `${zoomScale}%`,
+                      backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                    }}
+                  />
+                )}
 
               </div>
 
