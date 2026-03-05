@@ -118,7 +118,7 @@ const ProductDetail = () => {
           {/* Product Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
             {/* Image Gallery */}
-            <div className="space-y-4 animate-fade-in">
+            <div className="relative z-40 space-y-4 animate-fade-in">
               {/* Main Image */}
               <div className="relative">
                 <div

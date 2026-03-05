@@ -131,7 +131,7 @@ const FooterSection = () => {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            © 2024 ZIEA. All rights reserved.
+            © 2026 ZIEA. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-muted-foreground">
             <Link to="/privacy-policy" className="hover:text-foreground transition-colors">

@@ -61,7 +61,7 @@ const Navbar = () => {
         <div className="container-custom">
           <div className="flex items-center justify-between h-20">
             <Link to="/">
-              <img src={siteImages.logo} alt="ZIEA" className="h-10" />
+              <img src={siteImages.logo} alt="ZIEA" className="h-16" />
             </Link>
 
             <div className="hidden lg:flex items-center gap-8">

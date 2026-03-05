@@ -6,7 +6,7 @@ const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+
       <main className="pt-24 pb-16">
         <div className="container-custom">
           {/* Breadcrumb */}
@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
                 Privacy Policy
               </h1>
               <p className="text-muted-foreground">
-                Last updated: December 2024
+                Last updated: December 2026
               </p>
             </div>
 
@@ -30,8 +30,8 @@ const PrivacyPolicy = () => {
               <section>
                 <h2 className="text-2xl font-display font-medium mb-4">1. Introduction</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  At ZIEA ("we," "our," or "us"), we are committed to protecting your privacy. 
-                  This Privacy Policy explains how we collect, use, disclose, and safeguard your 
+                  At ZIEA ("we," "our," or "us"), we are committed to protecting your privacy.
+                  This Privacy Policy explains how we collect, use, disclose, and safeguard your
                   information when you visit our website or make a purchase.
                 </p>
               </section>
@@ -68,9 +68,9 @@ const PrivacyPolicy = () => {
               <section>
                 <h2 className="text-2xl font-display font-medium mb-4">4. Information Sharing</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We do not sell, trade, or rent your personal information to third parties. 
-                  We may share your information with trusted service providers who assist us in 
-                  operating our website, conducting our business, or serving you, so long as those 
+                  We do not sell, trade, or rent your personal information to third parties.
+                  We may share your information with trusted service providers who assist us in
+                  operating our website, conducting our business, or serving you, so long as those
                   parties agree to keep this information confidential.
                 </p>
               </section>
@@ -78,8 +78,8 @@ const PrivacyPolicy = () => {
               <section>
                 <h2 className="text-2xl font-display font-medium mb-4">5. Data Security</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We implement appropriate security measures to protect your personal information. 
-                  All payment transactions are encrypted using SSL technology. However, no method of 
+                  We implement appropriate security measures to protect your personal information.
+                  All payment transactions are encrypted using SSL technology. However, no method of
                   transmission over the Internet is 100% secure, and we cannot guarantee absolute security.
                 </p>
               </section>
@@ -87,8 +87,8 @@ const PrivacyPolicy = () => {
               <section>
                 <h2 className="text-2xl font-display font-medium mb-4">6. Cookies</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We use cookies and similar tracking technologies to enhance your browsing experience, 
-                  analyze site traffic, and understand where our visitors come from. You can control 
+                  We use cookies and similar tracking technologies to enhance your browsing experience,
+                  analyze site traffic, and understand where our visitors come from. You can control
                   cookies through your browser settings.
                 </p>
               </section>
@@ -109,7 +109,7 @@ const PrivacyPolicy = () => {
               <section>
                 <h2 className="text-2xl font-display font-medium mb-4">8. Children's Privacy</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Our website is not intended for children under 13 years of age. We do not knowingly 
+                  Our website is not intended for children under 13 years of age. We do not knowingly
                   collect personal information from children under 13.
                 </p>
               </section>
@@ -117,7 +117,7 @@ const PrivacyPolicy = () => {
               <section>
                 <h2 className="text-2xl font-display font-medium mb-4">9. Changes to This Policy</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We may update this Privacy Policy from time to time. We will notify you of any 
+                  We may update this Privacy Policy from time to time. We will notify you of any
                   changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
                 </p>
               </section>
@@ -129,7 +129,7 @@ const PrivacyPolicy = () => {
                 </p>
                 <div className="mt-4 p-6 bg-secondary/30 rounded-lg">
                   <p className="text-foreground font-medium">ZIEA</p>
-                  <p className="text-muted-foreground">Email: hello@ziea.in</p>
+                  <p className="text-muted-foreground">Email: contact@ziea.in</p>
                   <p className="text-muted-foreground">Phone: +91 8301 027 765</p>
                 </div>
               </section>
