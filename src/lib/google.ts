@@ -2,7 +2,27 @@ export const extractDriveFileId = (url?: string): string => {
     if (!url) return "";
 
     const trimmed = url.trim();
-    if (!trimmed || !trimmed.includes("drive.google.com")) return "";
+    if (!trimmed) return "";
+
+    // Allow users to paste a raw Drive file ID directly.
+    if (/^[a-zA-Z0-9_-]{20,}$/.test(trimmed)) {
+        return trimmed;
+    }
+
+    try {
+        const parsed = new URL(trimmed);
+        const idFromQuery = parsed.searchParams.get("id");
+        if (idFromQuery) {
+            return idFromQuery;
+        }
+
+        const fileMatchFromPath = parsed.pathname.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (fileMatchFromPath?.[1]) {
+            return fileMatchFromPath[1];
+        }
+    } catch {
+        // Ignore URL parsing errors and continue with regex fallbacks.
+    }
 
     const fileMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
     if (fileMatch?.[1]) {
